@@ -1,0 +1,69 @@
+<div
+  class="theme-container"
+  [ngClass]="theme == 'light' ? 'light-theme' : 'dark-theme'"
+>
+  <div class="global-wrapper">
+    <mat-toolbar color="primary">
+      <span>ToDo List</span>
+      <span style="flex: auto"></span>
+      <mat-slide-toggle labelPosition="before" (change)="toggleTheme()"
+        ><mat-icon>bedtime</mat-icon></mat-slide-toggle
+      >
+    </mat-toolbar>
+    <mat-card class="card">
+      <mat-card-header class="header">
+        <mat-card-title>Your current ToDo:</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="spinner" *ngIf="loading$ | async; else mainContent">
+          <mat-spinner color="accent"></mat-spinner>
+        </div>
+
+        <ng-template #mainContent>
+          <mat-card-actions class="action">
+            <input class="input" [formControl]="newTodo" />
+            <button
+              mat-raised-button
+              color="accent"
+              class="btn"
+              (click)="addTodo()"
+            >
+              Add new ToDo
+            </button>
+          </mat-card-actions>
+          <ul class="todo-list">
+            <mat-card
+              class="todo-card"
+              (click)="setTodo(todo)"
+              *ngFor="let todo of todos$ | async"
+            >
+              <input
+                class="editInput"
+                *ngIf="todo.id === selectedTodo?.id"
+                [formControl]="editedTodo"
+                (focusout)="updateTodo(todo.id, editedTodo.value)"
+              />
+              <span *ngIf="!selectedTodo || selectedTodo?.id !== todo.id">{{
+                todo.title
+              }}</span>
+              <button
+                mat-button
+                color="warn"
+                class="btn-remove"
+                (click)="removeTodo(todo)"
+              >
+                x
+              </button>
+            </mat-card>
+            <mat-card
+              class="default-card"
+              *ngIf="newTodo.valueChanges | async | trim: 20:'...'"
+            >
+              {{ newTodo.valueChanges | async | trim: 20:"..." }}
+            </mat-card>
+          </ul>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
