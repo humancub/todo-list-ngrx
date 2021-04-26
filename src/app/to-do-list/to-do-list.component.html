@@ -1,6 +1,6 @@
 <div
   class="theme-container"
-  [ngClass]="theme == 'light' ? 'light-theme' : 'dark-theme'"
+  [ngClass]="(theme$ | async) == 'light' ? 'light-theme' : 'dark-theme'"
 >
   <div class="global-wrapper">
     <mat-toolbar color="primary">
