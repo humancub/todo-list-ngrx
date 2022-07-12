@@ -20,8 +20,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LengthPipe } from './length.pipe';
+
 import { themeReducer } from './store/reducers/theme.reducer';
+import { LengthPipe } from './pipes/length.pipe';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [AppComponent, ToDoListComponent, LengthPipe],
@@ -36,6 +38,7 @@ import { themeReducer } from './store/reducers/theme.reducer';
     MatSlideToggleModule,
     FormsModule,
     ReactiveFormsModule,
+    AppRoutingModule,
     StoreModule.forRoot({ todosReducer, theme: themeReducer }),
     EffectsModule.forRoot([TodosEffects]),
     StoreDevtoolsModule.instrument({

@@ -8,7 +8,7 @@ import { currentTheme } from './store/selectors';
 
 @Component({
   selector: 'app-root',
-  template: `<app-to-do-list></app-to-do-list>`,
+  template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent implements OnInit {
   //isDarkTheme: Observable<boolean> | undefined;
